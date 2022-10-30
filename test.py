@@ -14,18 +14,17 @@ def dot2LongIP(ip):
 
 #[+] ----- CODE BLOCK ----- [+]
 ### Convert all database long 2 readable IPs
-filepath = 'C:/temp/test_ip.txt'
-with open(filepath) as fp:
-    line = fp.readline()
-    cnt = 1
-    while line:
-        parsed_long = re.findall(r'"([^"]*)"', line)[0]
-
-        print(long2DotIP(int(parsed_long)))
-
-        line = fp.readline()
-        cnt += 1
-
+filestream_path = 'C:/temp/test_ip.txt'
+answer_path = 'C:/temp/answer_ip.txt'
+with open(filestream_path, 'r') as filestream:
+    with open(answer_path, 'w') as answer:
+        for line in filestream:
+            currentline = line.split(',') # Split format of out-file
+            
+            total = str((long2DotIP(int((currentline[0]).replace('"','')))) + ', ' + (long2DotIP(int((currentline[1]).replace('"','')))) + ', ' + currentline [6] + ', ' + currentline[7]) + "\n"
+            
+            #print(total)
+            answer.write(total)
 
 
 ### GET IP from /var/log/access.log ###
