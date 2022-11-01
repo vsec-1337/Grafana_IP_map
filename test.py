@@ -1,6 +1,7 @@
 import ipaddress
 import re
 import time, os
+import mysql.connector
 
 #[+] ----- IP FUNCTIONS BLOCK ----- [+]
 ### IP2Location database converter ###
@@ -54,6 +55,30 @@ while 1:
 
 
 #[+] ----- DATABASE BLOCK ----- [+]
+### Connection to Database ###
+try:
+    connection = mysql.connector.connect(host='localhost',
+                                         database='Electronics',
+                                         user='pynative',
+                                         password='pynative@#29')
+    if connection.is_connected():
+        db_Info = connection.get_server_info()
+        print("Connected to MySQL Server version ", db_Info)
+        cursor = connection.cursor()
+        cursor.execute("select database();")
+        record = cursor.fetchone()
+        print("You're connected to database: ", record)
+
+except mysql.connect.Error as e:
+    print("Error while connecting to MySQL", e)
+4
+## To close connection uncomment below :
+#finally:
+#    if connection.is_connected():
+#        cursor.close()
+#        connection.close()
+#        print("MySQL connection is closed")
+
 ###### Add all fields into MySQL local database ######
 # /// TO COMPLETE ///
 
