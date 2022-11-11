@@ -1,4 +1,3 @@
-import ipaddress
 from ipregistry import IpregistryClient
 import mysql.connector
 from mysql.connector import Error
