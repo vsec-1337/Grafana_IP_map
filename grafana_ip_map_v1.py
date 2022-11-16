@@ -36,7 +36,7 @@ with open('/var/log/nginx/access.log', 'r') as file:
             d = line.split(' - - ')[0]
             ip_split = d.split('.')[0] + '.' + d.split('.')[1] + '.' + d.split('.')[2]
 
-            if (d.split('.')[0] == "10") or (d.split('.')[0]=="127") or (d.split('.')[0]=="192") or (d[3] != "."):
+            if (d.split('.')[0] == "10") or (d.split('.')[0]=="127") or (d.split('.')[0]=="192"):
                 continue
 
             row = select_query(ip_split, "cache_ips")
@@ -48,7 +48,10 @@ with open('/var/log/nginx/access.log', 'r') as file:
                     insert_query("cache_ips", row[0], row[1], row[2])
                     insert_query("live_ips", row[0], row[1], row[2])
                 else:
-                    api_value = api_query(d)
-                    insert_query("source_ips", api_value[0], api_value[1], api_value[2])
-                    insert_query("cache_ips", api_value[0], api_value[1], api_value[2])
-                    insert_query("live_ips", api_value[0], api_value[1], api_value[2])
+                    if (len(d)>15):
+                        continue
+                    else:
+                        api_value = api_query(d)
+                        insert_query("source_ips", api_value[0], api_value[1], api_value[2])
+                        insert_query("cache_ips", api_value[0], api_value[1], api_value[2])
+                        insert_query("live_ips", api_value[0], api_value[1], api_value[2])
