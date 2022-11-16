@@ -36,7 +36,7 @@ with open('/var/log/nginx/access.log', 'r') as file:
             d = line.split(' - - ')[0]
             ip_split = d.split('.')[0] + '.' + d.split('.')[1] + '.' + d.split('.')[2]
 
-            if (d.split('.')[0]) == "10" or (d.split('.')[0])=="127" or (d.split('.')[0])=="192" or (d[3] != "."):
+            if (d.split('.')[0] == "10") or (d.split('.')[0]=="127") or (d.split('.')[0]=="192") or (d[3] != "."):
                 continue
 
             row = select_query(ip_split, "cache_ips")
